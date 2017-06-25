@@ -1,0 +1,15 @@
+{
+  "name": "no-more-scroll-jank",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "pandoc --section-divs -s -t revealjs src/*.md -o html/index.html --verbose --slide-level=1 --from markdown-yaml_metadata_block",
+    "watch": "nodemon --exec \"npm run build\" src/*.md"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}
