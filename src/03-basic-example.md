@@ -28,15 +28,15 @@ widgetMaker.makeWidget('Widget B', 'bar');
 
 ```javascript
 
-function logArgs(target, name, description) {
+function logArgs(target, name, descriptor) {
 
-  console.log('decorator target: ', target);
+  console.log('target: ', target);
   // logs: Object { , 2 more… } 
 
-  console.log('decorator name: ', name);
+  console.log('name: ', name);
   // logs: makeWidget
 
-  console.log('decorator description: ', description);
+  console.log('descriptor: ', descriptor);
   // logs: undefined
   
   const oldMethod = target[name];

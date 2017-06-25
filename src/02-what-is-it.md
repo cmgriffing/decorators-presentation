@@ -14,30 +14,32 @@ A decorator is:
 - **C#**: Attributes
 
 <div class="notes">
-  Bares most similarity to Python decorators and is also the likely source of the name, decorators
+Bares most similarity to Python decorators and is also the likely source of the name, decorators
 </div>
 
 ## The Spec Proposal
 
 **Stage-2 (draft)**: Authored by Yehuda Katz of Ember fame
-    (http://tc39.github.io/proposal-decorators/)
-    (https://github.com/wycats/javascript-decorators)
+    
+- (http://tc39.github.io/proposal-decorators/)
+- (https://github.com/wycats/javascript-decorators)
 
 <div class="notes">
 
-    According to the tc39 process:
+According to the tc39 process:
 
-    Stage-2:
-    
-    - The proposal must now additionally have a formal description of the syntax and semantics of the feature.
-    - The description should be as complete as possible, but can contain todos and placeholders.
-    - Two experimental implementations of the feature are needed, but one of them can be in a transpiler such as Babel. (in this case: Babel, Typescript)
+Stage-2:
 
-    * Only incremental changes are expected from now on.
+- The proposal must now additionally have a formal description of the syntax and semantics of the feature.
+- The description should be as complete as possible, but can contain todos and placeholders.
+- Two experimental implementations of the feature are needed, but one of them can be in a transpiler such as Babel. (in this case: Babel, Typescript)
 
-    Yehuda's interest?
-    - Glimmer is written in Typescript
-    - Yehuda previously wrote about implementing Python decorators in Ruby back in 2009
+* Only incremental changes are expected from now on.
+
+Yehuda's interest?
+- Glimmer is written in Typescript
+- Yehuda previously wrote about implementing Python decorators in Ruby back in 2009
+
 </div>
 
 ## Availability
