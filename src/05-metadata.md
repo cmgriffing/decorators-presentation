@@ -25,7 +25,7 @@ export class SalePropertyPageComponent implements OnInit {
 
 ## @Component Metadata
 
-![Component Metadata](../assets/component-metadata.jpg)
+![Component Metadata](assets/component-metadata.jpg)
 
 <div class="notes">
 

@@ -99,7 +99,7 @@ Notice how we return the decorator signature but it has access to the arguments 
 
 ## TypeScript Examples
 
-![Angular2 decorators in action](../assets/angular2-decorators.jpg)
+![Angular2 decorators in action](assets/angular2-decorators.jpg)
 
 <div class="notes">
 Angular2 makes heavy use of decorators.
