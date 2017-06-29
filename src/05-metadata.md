@@ -10,67 +10,32 @@ eg:
 - The name and type of each of its properties
 - The name and type of its constructor arguments
 
-## A Simple Example: `readonly` properties
+## @Component: An Angular-based example
 
 ```javascript
-const notFoo = { bar: 123 };
-notFoo.bar = 456;
-// notFoo === { bar: 456 }
-
-type Foo = {
-  readonly bar;
-}
-
-const foo: Foo = { bar: 123 };
-foo.bar = 456;
-// Error: Left-hand side of assignment expression
-//   cannot be a constant or a read-only property
-```
-
-## How might `readonly` be implemented without metadata?
-
-Getters/Setters
-
-```javascript
-// regular JavaScript
-class Foo {
-  _bar;
-  get bar() {
-    return _bar;
-  }
-  set bar() {
-    throw new Error('bar is a readonly property')
-  }
+@Component({
+  selector: 'iv-sale-property-page',
+  templateUrl: './sale-property-page.component.html',
+  styleUrls: ['./sale-property-page.component.scss']
+})
+export class SalePropertyPageComponent implements OnInit {
+  // ...
 }
 ```
+
+## @Component Metadata
+
+![Component Metadata](../assets/component-metadata.jpg)
 
 <div class="notes">
-The problem? JavaScript has no concept of a private property. The resulting code would still allow something to modify `_bar` at runtime.
+
+When debugging your component implementation things like the selector, template, and styling would just be noise when trying to debug actual functionality.
+
+You might also notice that this has the template and styling as an inline string instead of the file references from the decorator.
+
+We can assume that this is how Angular is "bundling" templates during the js build process.
+
+The scss is also transformed into css with the variables and mixins already converted.
 </div>
-
-## But Wait...
-
-TypeScript has `private` properties.
-
-If JavaScript doesn't have `private`, how does TypeScript enforce `private` at runtime? Metadata.
-
-## Another try at a custom readonly property
-
-```
-class Foo {
-  @readonly bar;
-  get bar() {
-    return _bar;
-  }
-  set bar() {
-    throw new Error('bar is a readonly property')
-  }
-}
-
-function readonly(target, name, descriptor) {
-  
-  return descriptor;
-}
-```
 
 ---

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "pandoc --section-divs -s -t revealjs src/*.md -o html/index.html --verbose --slide-level=1 --from markdown-yaml_metadata_block",
+    "build": "pandoc --section-divs -s -t revealjs src/*.md -o html/index.html --verbose --slide-level=1 --from markdown-yaml_metadata_block --variable theme='beige'",
     "watch": "nodemon --exec \"npm run build\" src/*.md",
     "deploy": "git subtree push --prefix html origin gh-pages"
   },

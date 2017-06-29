@@ -7,7 +7,7 @@ A decorator is:
 - that takes the target, name, and decorator descriptor as arguments
 - and optionally returns a decorator descriptor to install on the target object
 
-## Other Languages
+## Similarities in Other Languages
 
 - **Python**: Decorators
 - **Java**: Annotations
