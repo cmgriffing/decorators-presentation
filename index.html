@@ -46,7 +46,7 @@ code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Ann
 code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
 code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
   </style>
-  <link rel="stylesheet" href="reveal.js/css/theme/black.css" id="theme">
+  <link rel="stylesheet" href="reveal.js/css/theme/beige.css" id="theme">
   <!-- Printing and PDF exports -->
   <script>
     var link = document.createElement( 'link' );
@@ -79,8 +79,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>and optionally returns a decorator descriptor to install on the target object</li>
 </ul>
 </section>
-<section id="other-languages" class="level2">
-<h2>Other Languages</h2>
+<section id="similarities-in-other-languages" class="level2">
+<h2>Similarities in Other Languages</h2>
 <ul>
 <li><strong>Python</strong>: Decorators</li>
 <li><strong>Java</strong>: Annotations</li>
@@ -92,21 +92,21 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </section>
 <section id="the-spec-proposal" class="level2">
 <h2>The Spec Proposal</h2>
-<p><strong>Stage-2 (draft)</strong>: Authored by Yehuda Katz of Ember fame (http://tc39.github.io/proposal-decorators/) (https://github.com/wycats/javascript-decorators)</p>
+<p><strong>Stage-2 (draft)</strong>: Authored by Yehuda Katz of Ember fame</p>
+<ul>
+<li>(http://tc39.github.io/proposal-decorators/)</li>
+<li>(https://github.com/wycats/javascript-decorators)</li>
+</ul>
 <aside class="notes">
-<pre><code>According to the tc39 process:
-
-Stage-2:
-
-- The proposal must now additionally have a formal description of the syntax and semantics of the feature.
-- The description should be as complete as possible, but can contain todos and placeholders.
-- Two experimental implementations of the feature are needed, but one of them can be in a transpiler such as Babel. (in this case: Babel, Typescript)
-
-* Only incremental changes are expected from now on.
-
-Yehuda&#39;s interest?
-- Glimmer is written in Typescript
-- Yehuda previously wrote about implementing Python decorators in Ruby back in 2009</code></pre>
+<p>According to the tc39 process:</p>
+<p>Stage-2:</p>
+<ul>
+<li>The proposal must now additionally have a formal description of the syntax and semantics of the feature.</li>
+<li>The description should be as complete as possible, but can contain todos and placeholders.</li>
+<li><p>Two experimental implementations of the feature are needed, but one of them can be in a transpiler such as Babel. (in this case: Babel, Typescript)</p></li>
+<li><p>Only incremental changes are expected from now on.</p></li>
+</ul>
+<p>Yehuda's interest? - Glimmer is written in Typescript - Yehuda previously wrote about implementing Python decorators in Ruby back in 2009</p>
 </aside>
 </section>
 <section id="availability" class="level2">
@@ -205,15 +205,15 @@ Yehuda&#39;s interest?
 <section id="logging-method-arguments-decorator" class="level2">
 <h2>Logging Method Arguments (decorator)</h2>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">
-<span class="kw">function</span> <span class="at">logArgs</span>(target<span class="op">,</span> name<span class="op">,</span> description) <span class="op">{</span>
+<span class="kw">function</span> <span class="at">logArgs</span>(target<span class="op">,</span> name<span class="op">,</span> descriptor) <span class="op">{</span>
 
-  <span class="va">console</span>.<span class="at">log</span>(<span class="st">&#39;decorator target: &#39;</span><span class="op">,</span> target)<span class="op">;</span>
+  <span class="va">console</span>.<span class="at">log</span>(<span class="st">&#39;target: &#39;</span><span class="op">,</span> target)<span class="op">;</span>
   <span class="co">// logs: Object { , 2 more… } </span>
 
-  <span class="va">console</span>.<span class="at">log</span>(<span class="st">&#39;decorator name: &#39;</span><span class="op">,</span> name)<span class="op">;</span>
+  <span class="va">console</span>.<span class="at">log</span>(<span class="st">&#39;name: &#39;</span><span class="op">,</span> name)<span class="op">;</span>
   <span class="co">// logs: makeWidget</span>
 
-  <span class="va">console</span>.<span class="at">log</span>(<span class="st">&#39;decorator description: &#39;</span><span class="op">,</span> description)<span class="op">;</span>
+  <span class="va">console</span>.<span class="at">log</span>(<span class="st">&#39;descriptor: &#39;</span><span class="op">,</span> descriptor)<span class="op">;</span>
   <span class="co">// logs: undefined</span>
   
   <span class="kw">const</span> oldMethod <span class="op">=</span> target[name]<span class="op">;</span>
@@ -302,64 +302,307 @@ Yehuda&#39;s interest?
 <li>The name and type of its constructor arguments</li>
 </ul>
 </section>
-<section id="a-simple-example-readonly-properties" class="level2">
-<h2>A Simple Example: <code>readonly</code> properties</h2>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">const</span> notFoo <span class="op">=</span> <span class="op">{</span> <span class="dt">bar</span><span class="op">:</span> <span class="dv">123</span> <span class="op">};</span>
-<span class="va">notFoo</span>.<span class="at">bar</span> <span class="op">=</span> <span class="dv">456</span><span class="op">;</span>
-<span class="co">// notFoo === { bar: 456 }</span>
-
-type Foo <span class="op">=</span> <span class="op">{</span>
-  readonly bar<span class="op">;</span>
-<span class="op">}</span>
-
-<span class="kw">const</span> foo<span class="op">:</span> Foo <span class="op">=</span> <span class="op">{</span> <span class="dt">bar</span><span class="op">:</span> <span class="dv">123</span> <span class="op">};</span>
-<span class="va">foo</span>.<span class="at">bar</span> <span class="op">=</span> <span class="dv">456</span><span class="op">;</span>
-<span class="co">// Error: Left-hand side of assignment expression</span>
-<span class="co">//   cannot be a constant or a read-only property</span></code></pre></div>
-</section>
-<section id="how-might-readonly-be-implemented-without-metadata" class="level2">
-<h2>How might <code>readonly</code> be implemented without metadata?</h2>
-<p>Getters/Setters</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">// regular JavaScript</span>
-<span class="kw">class</span> Foo <span class="op">{</span>
-  _bar<span class="op">;</span>
-  get <span class="at">bar</span>() <span class="op">{</span>
-    <span class="cf">return</span> _bar<span class="op">;</span>
-  <span class="op">}</span>
-  set <span class="at">bar</span>() <span class="op">{</span>
-    <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="st">&#39;bar is a readonly property&#39;</span>)
-  <span class="op">}</span>
+<section id="component-an-angular-based-example" class="level2">
+<h2><span class="citation" data-cites="Component">@Component</span>: An Angular-based example</h2>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">@<span class="at">Component</span>(<span class="op">{</span>
+  <span class="dt">selector</span><span class="op">:</span> <span class="st">&#39;iv-sale-property-page&#39;</span><span class="op">,</span>
+  <span class="dt">templateUrl</span><span class="op">:</span> <span class="st">&#39;./sale-property-page.component.html&#39;</span><span class="op">,</span>
+  <span class="dt">styleUrls</span><span class="op">:</span> [<span class="st">&#39;./sale-property-page.component.scss&#39;</span>]
+<span class="op">}</span>)
+<span class="im">export</span> <span class="kw">class</span> SalePropertyPageComponent <span class="kw">implements</span> OnInit <span class="op">{</span>
+  <span class="co">// ...</span>
 <span class="op">}</span></code></pre></div>
+</section>
+<section id="component-metadata" class="level2">
+<h2><span class="citation" data-cites="Component">@Component</span> Metadata</h2>
+<figure>
+<img src="../assets/component-metadata.jpg" alt="Component Metadata" /><figcaption>Component Metadata</figcaption>
+</figure>
 <aside class="notes">
-<p>The problem? JavaScript has no concept of a private property. The resulting code would still allow something to modify <code>_bar</code> at runtime.</p>
+<p>When debugging your component implementation things like the selector, template, and styling would just be noise when trying to debug actual functionality.</p>
+<p>You might also notice that this has the template and styling as an inline string instead of the file references from the decorator.</p>
+<p>We can assume that this is how Angular is &quot;bundling&quot; templates during the js build process.</p>
+<p>The scss is also transformed into css with the variables and mixins already converted.</p>
 </aside>
-</section>
-<section id="but-wait..." class="level2">
-<h2>But Wait...</h2>
-<p>TypeScript has <code>private</code> properties.</p>
-<p>If JavaScript doesn't have <code>private</code>, how does TypeScript enforce <code>private</code> at runtime? Metadata.</p>
-</section>
-<section id="another-try-at-a-custom-readonly-property" class="level2">
-<h2>Another try at a custom readonly property</h2>
-<pre><code>class Foo {
-  @readonly bar;
-  get bar() {
-    return _bar;
-  }
-  set bar() {
-    throw new Error(&#39;bar is a readonly property&#39;)
-  }
-}
-
-function readonly(target, name, descriptor) {
-  
-  return descriptor;
-}</code></pre>
 </section>
 </section>
 <section class="slide level1">
 
 <section id="citations-and-further-reading" class="level2">
+<h2>Citations and Further Reading</h2>
+<ul>
+<li><p><a href="https://tc39.github.io/proposal-decorators/">The Specification</a></p></li>
+<li><p><a href="http://blog.wolksoftware.com/decorators-reflection-javascript-typescript">wolksoftware.com</a>: A 4-part blog series thoroughly explaining decorators</p></li>
+<li><p><a href="https://rbuckton.github.io/reflect-metadata/">reflect-metadata</a>: A polyfill for reflection and metadata</p></li>
+<li><p><a href="https://www.typescriptlang.org/play/">TypeScript Playground</a>: An online repl for toying with decorators and seeing how typsecript turns it into ES5.</p></li>
+</ul>
+</section>
+</section>
+<section id="decorators-1" class="slide level1">
+<h1>Decorators</h1>
+</section>
+<section class="slide level1">
+
+<section id="what-are-they-1" class="level2">
+<h2>What are they?</h2>
+<p>A decorator is:</p>
+<ul>
+<li>an expression</li>
+<li>that evaluates to a function</li>
+<li>that takes the target, name, and decorator descriptor as arguments</li>
+<li>and optionally returns a decorator descriptor to install on the target object</li>
+</ul>
+</section>
+<section id="similarities-in-other-languages-1" class="level2">
+<h2>Similarities in Other Languages</h2>
+<ul>
+<li><strong>Python</strong>: Decorators</li>
+<li><strong>Java</strong>: Annotations</li>
+<li><strong>C#</strong>: Attributes</li>
+</ul>
+<aside class="notes">
+<p>Bares most similarity to Python decorators and is also the likely source of the name, decorators</p>
+</aside>
+</section>
+<section id="the-spec-proposal-1" class="level2">
+<h2>The Spec Proposal</h2>
+<p><strong>Stage-2 (draft)</strong>: Authored by Yehuda Katz of Ember fame</p>
+<ul>
+<li>(http://tc39.github.io/proposal-decorators/)</li>
+<li>(https://github.com/wycats/javascript-decorators)</li>
+</ul>
+<aside class="notes">
+<p>According to the tc39 process:</p>
+<p>Stage-2:</p>
+<ul>
+<li>The proposal must now additionally have a formal description of the syntax and semantics of the feature.</li>
+<li>The description should be as complete as possible, but can contain todos and placeholders.</li>
+<li><p>Two experimental implementations of the feature are needed, but one of them can be in a transpiler such as Babel. (in this case: Babel, Typescript)</p></li>
+<li><p>Only incremental changes are expected from now on.</p></li>
+</ul>
+<p>Yehuda's interest? - Glimmer is written in Typescript - Yehuda previously wrote about implementing Python decorators in Ruby back in 2009</p>
+</aside>
+</section>
+<section id="availability-1" class="level2">
+<h2>Availability</h2>
+<ul>
+<li>TypeScript</li>
+<li>Babel? (kind of, but not really. WIP)</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>Babel Stage-2 transform is in progress.</li>
+<li>Legacy transform will be Babel 7 default. (mimics Babel 5 decorator behavior that is likely to change)</li>
+</ul>
+<p>The difference? The spec may change regarding the execution model. eg: the parameters you receive and order of operations.</p>
+<p>The bulk of the spec is unlikely to change.</p>
+</aside>
+</section>
+<section id="basic-example-first-look-1" class="level2">
+<h2>Basic Example (First Look)</h2>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">@annotation
+<span class="kw">class</span> MyClass <span class="op">{</span> <span class="op">}</span>
+
+<span class="kw">function</span> <span class="at">annotation</span>(target) <span class="op">{</span>
+   <span class="co">// Add a property on target</span>
+   <span class="va">target</span>.<span class="at">annotated</span> <span class="op">=</span> <span class="kw">true</span><span class="op">;</span>
+<span class="op">}</span>
+
+<span class="co">// MyClass.annotated === true</span></code></pre></div>
+<aside class="notes">
+<p>Not very complicated. We arent even using or showing all the arguments.</p>
+</aside>
+</section>
+<section id="basic-example-arguments-1" class="level2">
+<h2>Basic Example (Arguments)</h2>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">@<span class="at">isTestable</span>(<span class="kw">true</span>)
+<span class="kw">class</span> MyClass <span class="op">{</span> <span class="op">}</span>
+
+<span class="kw">function</span> <span class="at">isTestable</span>(value) <span class="op">{</span>
+   <span class="cf">return</span> <span class="kw">function</span> <span class="at">decorator</span>(target) <span class="op">{</span>
+      <span class="va">target</span>.<span class="at">isTestable</span> <span class="op">=</span> value<span class="op">;</span>
+   <span class="op">}</span>
+<span class="op">}</span>
+
+<span class="co">// MyClass.isTestable === true</span></code></pre></div>
+<aside class="notes">
+<p>Notice how we return the decorator signature but it has access to the arguments from the outer closure.</p>
+</aside>
+</section>
+<section id="typescript-examples-1" class="level2">
+<h2>TypeScript Examples</h2>
+<figure>
+<img src="../assets/angular2-decorators.jpg" alt="Angular2 decorators in action" /><figcaption>Angular2 decorators in action</figcaption>
+</figure>
+<aside class="notes">
+<p>Angular2 makes heavy use of decorators.</p>
+</aside>
+</section>
+<section id="types-of-decorators-in-the-spec-1" class="level2">
+<h2>Types of Decorators (in the spec)</h2>
+<ul>
+<li>Class Declaration</li>
+<li>Class Method Declaration</li>
+<li>Class Accessor Declaration (getters/setters)</li>
+<li>Object Literal Method Declaration</li>
+<li>Object Literal Accessor Declaration</li>
+</ul>
+</section>
+</section>
+<section class="slide level1">
+
+<section id="another-basic-example-class-method-decorator-1" class="level2">
+<h2>Another Basic Example (Class Method Decorator)</h2>
+</section>
+<section id="logging-method-arguments-usage-1" class="level2">
+<h2>Logging Method Arguments (usage)</h2>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">class</span> WidgetMaker <span class="op">{</span>
+
+  @logArgs
+  <span class="at">makeWidget</span>(widgetName<span class="op">,</span> widgetType) <span class="op">{</span>
+    <span class="co">// here for demonstration</span>
+    <span class="va">console</span>.<span class="at">log</span>(<span class="st">&#39;original makeWidget&#39;</span>)<span class="op">;</span>
+    <span class="cf">return</span> <span class="op">{</span>
+      <span class="dt">widgetName</span><span class="op">:</span> <span class="va">widgetName</span>.<span class="at">toLowerCase</span>()<span class="op">,</span>
+      <span class="dt">widgetType</span><span class="op">:</span> <span class="va">widgetType</span>.<span class="at">toLowerCase</span>()
+    <span class="op">}</span>
+  <span class="op">}</span>
+
+<span class="op">}</span>
+
+<span class="kw">const</span> widgetMaker <span class="op">=</span> <span class="kw">new</span> <span class="at">WidgetMaker</span>()<span class="op">;</span>
+<span class="va">widgetMaker</span>.<span class="at">makeWidget</span>(<span class="st">&#39;Widget A&#39;</span><span class="op">,</span> <span class="st">&#39;foo&#39;</span>)<span class="op">;</span>
+<span class="co">// logs: WidgetMaker.makeWidget called with args:, Widget A, foo</span>
+<span class="va">widgetMaker</span>.<span class="at">makeWidget</span>(<span class="st">&#39;Widget B&#39;</span><span class="op">,</span> <span class="st">&#39;bar&#39;</span>)<span class="op">;</span>
+<span class="co">// logs: WidgetMaker.makeWidget called with args:, Widget B, bar</span></code></pre></div>
+</section>
+<section id="logging-method-arguments-decorator-1" class="level2">
+<h2>Logging Method Arguments (decorator)</h2>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">
+<span class="kw">function</span> <span class="at">logArgs</span>(target<span class="op">,</span> name<span class="op">,</span> descriptor) <span class="op">{</span>
+
+  <span class="va">console</span>.<span class="at">log</span>(<span class="st">&#39;target: &#39;</span><span class="op">,</span> target)<span class="op">;</span>
+  <span class="co">// logs: Object { , 2 more… } </span>
+
+  <span class="va">console</span>.<span class="at">log</span>(<span class="st">&#39;name: &#39;</span><span class="op">,</span> name)<span class="op">;</span>
+  <span class="co">// logs: makeWidget</span>
+
+  <span class="va">console</span>.<span class="at">log</span>(<span class="st">&#39;descriptor: &#39;</span><span class="op">,</span> descriptor)<span class="op">;</span>
+  <span class="co">// logs: undefined</span>
+  
+  <span class="kw">const</span> oldMethod <span class="op">=</span> target[name]<span class="op">;</span>
+  target[name] <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span>
+
+    <span class="va">console</span>.<span class="at">log</span>(<span class="va">target</span>.<span class="va">constructor</span>.<span class="at">name</span> <span class="op">+</span> <span class="st">&#39;.&#39;</span> <span class="op">+</span> name <span class="op">+</span> <span class="st">&#39; called with&#39;</span><span class="op">,</span> arguments)<span class="op">;</span>
+
+    <span class="at">oldMethod</span>(...<span class="at">arguments</span>)<span class="op">;</span>
+
+  <span class="op">}</span>.<span class="at">bind</span>(target)<span class="op">;</span>
+  
+  <span class="cf">return</span> target<span class="op">;</span>
+<span class="op">}</span></code></pre></div>
+</section>
+</section>
+<section class="slide level1">
+
+<section id="a-real-example-angulars-input-method-decorator-1" class="level2">
+<h2>A Real Example: Angular's Input method decorator</h2>
+</section>
+<section id="input-usage-1" class="level2">
+<h2>Input (usage)</h2>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="im">import</span> <span class="op">{</span> Component<span class="op">,</span> Input <span class="op">}</span> <span class="im">from</span> <span class="st">&#39;@angular/core&#39;</span><span class="op">;</span>
+<span class="im">import</span> <span class="op">{</span> Hero <span class="op">}</span> <span class="im">from</span> <span class="st">&#39;./hero&#39;</span><span class="op">;</span>
+@<span class="at">Component</span>(<span class="op">{</span>
+  <span class="dt">selector</span><span class="op">:</span> <span class="st">&#39;hero-child&#39;</span><span class="op">,</span>
+  <span class="dt">template</span><span class="op">:</span> <span class="vs">`</span>
+<span class="vs">    &lt;h3&gt;{{hero.name}} says:&lt;/h3&gt;</span>
+<span class="vs">    &lt;p&gt;I, {{hero.name}}, am at your service, {{masterName}}.&lt;/p&gt;</span>
+<span class="vs">  `</span>
+<span class="op">}</span>)
+<span class="im">export</span> <span class="kw">class</span> HeroChildComponent <span class="op">{</span>
+  @<span class="at">Input</span>() <span class="dt">hero</span><span class="op">:</span> Hero<span class="op">;</span>
+  @<span class="at">Input</span>(<span class="st">&#39;master&#39;</span>) <span class="dt">masterName</span><span class="op">:</span> string<span class="op">;</span>
+<span class="op">}</span></code></pre></div>
+</section>
+<section id="input-implementation-1" class="level2">
+<h2>Input (implementation)</h2>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">// the input decorator from @angular/angular/packages/core/src/metadata/directives.ts</span>
+<span class="im">export</span> <span class="kw">const</span> Input<span class="op">:</span> InputDecorator <span class="op">=</span>
+    <span class="at">makePropDecorator</span>(<span class="st">&#39;Input&#39;</span><span class="op">,</span> (bindingPropertyName<span class="op">?</span>: string) <span class="op">=&gt;</span> (<span class="op">{</span>bindingPropertyName<span class="op">}</span>))<span class="op">;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">
+<span class="co">// the makePropDecorator utility method from @angular/angular/packages/core/src/util/decorators.ts</span>
+<span class="im">export</span> <span class="kw">function</span> <span class="at">makePropDecorator</span>(
+    name<span class="op">:</span> string<span class="op">,</span> props<span class="op">?</span>: (...<span class="at">args</span><span class="op">:</span> any[]) <span class="op">=&gt;</span> any<span class="op">,</span> parentClass<span class="op">?</span>: any)<span class="op">:</span> any <span class="op">{</span>
+  <span class="kw">const</span> metaCtor <span class="op">=</span> <span class="at">makeMetadataCtor</span>(props)<span class="op">;</span>
+
+  <span class="kw">function</span> <span class="at">PropDecoratorFactory</span>(...<span class="at">args</span><span class="op">:</span> any[])<span class="op">:</span> any <span class="op">{</span>
+    <span class="cf">if</span> (<span class="kw">this</span> <span class="kw">instanceof</span> PropDecoratorFactory) <span class="op">{</span>
+      <span class="va">metaCtor</span>.<span class="at">apply</span>(<span class="kw">this</span><span class="op">,</span> args)<span class="op">;</span>
+      <span class="cf">return</span> <span class="kw">this</span><span class="op">;</span>
+    <span class="op">}</span>
+
+    <span class="kw">const</span> decoratorInstance <span class="op">=</span> <span class="kw">new</span> (<span class="op">&lt;</span>any<span class="op">&gt;</span>PropDecoratorFactory)(...<span class="at">args</span>)<span class="op">;</span>
+
+    <span class="cf">return</span> <span class="kw">function</span> <span class="at">PropDecorator</span>(<span class="dt">target</span><span class="op">:</span> any<span class="op">,</span> <span class="dt">name</span><span class="op">:</span> string) <span class="op">{</span>
+      <span class="kw">const</span> meta <span class="op">=</span> <span class="va">Reflect</span>.<span class="at">getOwnMetadata</span>(<span class="st">&#39;propMetadata&#39;</span><span class="op">,</span> <span class="va">target</span>.<span class="at">constructor</span>) <span class="op">||</span> <span class="op">{};</span>
+      meta[name] <span class="op">=</span> <span class="va">meta</span>.<span class="at">hasOwnProperty</span>(name) <span class="op">&amp;&amp;</span> meta[name] <span class="op">||</span> []<span class="op">;</span>
+      meta[name].<span class="at">unshift</span>(decoratorInstance)<span class="op">;</span>
+      <span class="va">Reflect</span>.<span class="at">defineMetadata</span>(<span class="st">&#39;propMetadata&#39;</span><span class="op">,</span> meta<span class="op">,</span> <span class="va">target</span>.<span class="at">constructor</span>)<span class="op">;</span>
+    <span class="op">};</span>
+  <span class="op">}</span>
+
+  <span class="cf">if</span> (parentClass) <span class="op">{</span>
+    <span class="va">PropDecoratorFactory</span>.<span class="at">prototype</span> <span class="op">=</span> <span class="va">Object</span>.<span class="at">create</span>(<span class="va">parentClass</span>.<span class="at">prototype</span>)<span class="op">;</span>
+  <span class="op">}</span>
+
+  <span class="va">PropDecoratorFactory</span>.<span class="va">prototype</span>.<span class="at">toString</span> <span class="op">=</span> () <span class="op">=&gt;</span> <span class="vs">`@</span><span class="sc">${</span>name<span class="sc">}</span><span class="vs">`</span><span class="op">;</span>
+  (<span class="op">&lt;</span>any<span class="op">&gt;</span>PropDecoratorFactory).<span class="at">annotationCls</span> <span class="op">=</span> PropDecoratorFactory<span class="op">;</span>
+  <span class="cf">return</span> PropDecoratorFactory<span class="op">;</span>
+<span class="op">}</span></code></pre></div>
+</section>
+</section>
+<section class="slide level1">
+
+<section id="metadata-1" class="level2">
+<h2>Metadata</h2>
+</section>
+<section id="what-is-metadata-1" class="level2">
+<h2>What is metadata?</h2>
+<p>Metadata pertains to the code itself rather than the business logic.</p>
+<p>eg:</p>
+<ul>
+<li>The name and type of the entity itself</li>
+<li>The name and type of each of its properties</li>
+<li>The name and type of its constructor arguments</li>
+</ul>
+</section>
+<section id="component-an-angular-based-example-1" class="level2">
+<h2><span class="citation" data-cites="Component">@Component</span>: An Angular-based example</h2>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">@<span class="at">Component</span>(<span class="op">{</span>
+  <span class="dt">selector</span><span class="op">:</span> <span class="st">&#39;iv-sale-property-page&#39;</span><span class="op">,</span>
+  <span class="dt">templateUrl</span><span class="op">:</span> <span class="st">&#39;./sale-property-page.component.html&#39;</span><span class="op">,</span>
+  <span class="dt">styleUrls</span><span class="op">:</span> [<span class="st">&#39;./sale-property-page.component.scss&#39;</span>]
+<span class="op">}</span>)
+<span class="im">export</span> <span class="kw">class</span> SalePropertyPageComponent <span class="kw">implements</span> OnInit <span class="op">{</span>
+  <span class="co">// ...</span>
+<span class="op">}</span></code></pre></div>
+</section>
+<section id="component-metadata-1" class="level2">
+<h2><span class="citation" data-cites="Component">@Component</span> Metadata</h2>
+<figure>
+<img src="../assets/component-metadata.jpg" alt="Component Metadata" /><figcaption>Component Metadata</figcaption>
+</figure>
+<aside class="notes">
+<p>When debugging your component implementation things like the selector, template, and styling would just be noise when trying to debug actual functionality.</p>
+<p>You might also notice that this has the template and styling as an inline string instead of the file references from the decorator.</p>
+<p>We can assume that this is how Angular is &quot;bundling&quot; templates during the js build process.</p>
+<p>The scss is also transformed into css with the variables and mixins already converted.</p>
+</aside>
+</section>
+</section>
+<section class="slide level1">
+
+<section id="citations-and-further-reading-1" class="level2">
 <h2>Citations and Further Reading</h2>
 <ul>
 <li><p><a href="https://tc39.github.io/proposal-decorators/">The Specification</a></p></li>
