@@ -46,8 +46,6 @@ function deprecated(target, name, descriptor) {
 
 What if we wanted to add a custom message?
 
-In this case, we want to let the user know about creating the widget using the Widget class.
-
 ```javascript
 class WidgetUtilities {
 
