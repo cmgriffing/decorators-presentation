@@ -124,37 +124,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>The bulk of the spec is unlikely to change.</p>
 </aside>
 </section>
-<section id="basic-example-first-look" class="level2">
-<h2>Basic Example (First Look)</h2>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">@annotation
-<span class="kw">class</span> MyClass <span class="op">{</span> <span class="op">}</span>
-
-<span class="kw">function</span> <span class="at">annotation</span>(target) <span class="op">{</span>
-   <span class="co">// Add a property on target</span>
-   <span class="va">target</span>.<span class="at">annotated</span> <span class="op">=</span> <span class="kw">true</span><span class="op">;</span>
-<span class="op">}</span>
-
-<span class="co">// MyClass.annotated === true</span></code></pre></div>
-<aside class="notes">
-<p>Not very complicated. We arent even using or showing all the arguments.</p>
-</aside>
-</section>
-<section id="basic-example-arguments" class="level2">
-<h2>Basic Example (Arguments)</h2>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">@<span class="at">isTestable</span>(<span class="kw">true</span>)
-<span class="kw">class</span> MyClass <span class="op">{</span> <span class="op">}</span>
-
-<span class="kw">function</span> <span class="at">isTestable</span>(value) <span class="op">{</span>
-   <span class="cf">return</span> <span class="kw">function</span> <span class="at">decorator</span>(target) <span class="op">{</span>
-      <span class="va">target</span>.<span class="at">isTestable</span> <span class="op">=</span> value<span class="op">;</span>
-   <span class="op">}</span>
-<span class="op">}</span>
-
-<span class="co">// MyClass.isTestable === true</span></code></pre></div>
-<aside class="notes">
-<p>Notice how we return the decorator signature but it has access to the arguments from the outer closure.</p>
-</aside>
-</section>
 <section id="typescript-examples" class="level2">
 <h2>TypeScript Examples</h2>
 <figure>
@@ -177,17 +146,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </section>
 <section class="slide level1">
 
-<section id="another-basic-example-class-method-decorator" class="level2">
-<h2>Another Basic Example (Class Method Decorator)</h2>
+<section id="a-basic-example-class-method-decorator" class="level2">
+<h2>A Basic Example (Class Method Decorator)</h2>
 </section>
-<section id="logging-method-arguments-usage" class="level2">
-<h2>Logging Method Arguments (usage)</h2>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">class</span> WidgetMaker <span class="op">{</span>
+<section id="deprecated-class-method-usage" class="level2">
+<h2>Deprecated Class Method (usage)</h2>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">class</span> WidgetUtilities <span class="op">{</span>
 
-  @logArgs
+  @deprecated
   <span class="at">makeWidget</span>(widgetName<span class="op">,</span> widgetType) <span class="op">{</span>
-    <span class="co">// here for demonstration</span>
-    <span class="va">console</span>.<span class="at">log</span>(<span class="st">&#39;original makeWidget&#39;</span>)<span class="op">;</span>
     <span class="cf">return</span> <span class="op">{</span>
       <span class="dt">widgetName</span><span class="op">:</span> <span class="va">widgetName</span>.<span class="at">toLowerCase</span>()<span class="op">,</span>
       <span class="dt">widgetType</span><span class="op">:</span> <span class="va">widgetType</span>.<span class="at">toLowerCase</span>()
@@ -196,43 +163,79 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <span class="op">}</span>
 
-<span class="kw">const</span> widgetMaker <span class="op">=</span> <span class="kw">new</span> <span class="at">WidgetMaker</span>()<span class="op">;</span>
-<span class="va">widgetMaker</span>.<span class="at">makeWidget</span>(<span class="st">&#39;Widget A&#39;</span><span class="op">,</span> <span class="st">&#39;foo&#39;</span>)<span class="op">;</span>
-<span class="co">// logs: WidgetMaker.makeWidget called with args:, Widget A, foo</span>
-<span class="va">widgetMaker</span>.<span class="at">makeWidget</span>(<span class="st">&#39;Widget B&#39;</span><span class="op">,</span> <span class="st">&#39;bar&#39;</span>)<span class="op">;</span>
-<span class="co">// logs: WidgetMaker.makeWidget called with args:, Widget B, bar</span></code></pre></div>
+<span class="kw">const</span> widgetUtilities <span class="op">=</span> <span class="kw">new</span> <span class="at">WidgetUtilities</span>()<span class="op">;</span>
+<span class="kw">const</span> newWidget <span class="op">=</span> <span class="va">widgetUtilities</span>.<span class="at">makeWidget</span>(<span class="st">&#39;Widget A&#39;</span><span class="op">,</span> <span class="st">&#39;foo&#39;</span>)<span class="op">;</span>
+<span class="co">// should print a warning to the console:</span>
+<span class="co">// &#39;Warning: WidgetUtilities.makeWidget is deprecated.&#39;</span></code></pre></div>
+<aside class="notes">
+<p>Let us assume we have a library that other people will be using. We can't just remove the method yet, but we want to warn people that it will be going away sometime in the future.</p>
+</aside>
 </section>
-<section id="logging-method-arguments-decorator" class="level2">
-<h2>Logging Method Arguments (decorator)</h2>
+<section id="deprecated-class-method-implementation" class="level2">
+<h2>Deprecated Class Method (implementation)</h2>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">
-<span class="kw">function</span> <span class="at">logArgs</span>(target<span class="op">,</span> name<span class="op">,</span> descriptor) <span class="op">{</span>
-
-  <span class="va">console</span>.<span class="at">log</span>(<span class="st">&#39;target: &#39;</span><span class="op">,</span> target)<span class="op">;</span>
-  <span class="co">// logs: Object { , 2 more… } </span>
-
-  <span class="va">console</span>.<span class="at">log</span>(<span class="st">&#39;name: &#39;</span><span class="op">,</span> name)<span class="op">;</span>
-  <span class="co">// logs: makeWidget</span>
-
-  <span class="va">console</span>.<span class="at">log</span>(<span class="st">&#39;descriptor: &#39;</span><span class="op">,</span> descriptor)<span class="op">;</span>
-  <span class="co">// logs: undefined</span>
-  
+<span class="kw">function</span> <span class="at">deprecated</span>(target<span class="op">,</span> name<span class="op">,</span> descriptor) <span class="op">{</span>
   <span class="kw">const</span> oldMethod <span class="op">=</span> target[name]<span class="op">;</span>
+
   target[name] <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span>
-
-    <span class="va">console</span>.<span class="at">log</span>(<span class="va">target</span>.<span class="va">constructor</span>.<span class="at">name</span> <span class="op">+</span> <span class="st">&#39;.&#39;</span> <span class="op">+</span> name <span class="op">+</span> <span class="st">&#39; called with&#39;</span><span class="op">,</span> arguments)<span class="op">;</span>
-
+    <span class="va">console</span>.<span class="at">warn</span>(<span class="vs">`Warning: </span><span class="sc">${</span><span class="va">target</span>.<span class="va">constructor</span>.<span class="at">name</span><span class="sc">}</span><span class="vs">.</span><span class="sc">${</span>name<span class="sc">}</span><span class="vs"> is deprecated.`</span>)<span class="op">;</span>
     <span class="at">oldMethod</span>(...<span class="at">arguments</span>)<span class="op">;</span>
-
   <span class="op">}</span>.<span class="at">bind</span>(target)<span class="op">;</span>
   
   <span class="cf">return</span> target<span class="op">;</span>
 <span class="op">}</span></code></pre></div>
 </section>
+<section id="deprecated-class-method-arguments-usage" class="level2">
+<h2>Deprecated Class Method (arguments usage)</h2>
+<p>What if we wanted to add a custom message?</p>
+<p>In this case, we want to let the user know about creating the widget using the Widget class.</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">class</span> WidgetUtilities <span class="op">{</span>
+
+  @<span class="at">deprecated</span>(<span class="st">&#39;Please use `new Widget(widgetName, widgetType)` instead.&#39;</span>)
+  <span class="at">makeWidget</span>(widgetName<span class="op">,</span> widgetType) <span class="op">{</span>
+    <span class="cf">return</span> <span class="kw">new</span> <span class="at">Widget</span>(widgetName<span class="op">,</span> widgetType)<span class="op">;</span>
+  <span class="op">}</span>
+
+<span class="op">}</span>
+
+<span class="kw">const</span> widgetUtilities <span class="op">=</span> <span class="kw">new</span> <span class="at">WidgetUtilities</span>()<span class="op">;</span>
+<span class="kw">const</span> newWidget <span class="op">=</span> <span class="va">widgetUtilities</span>.<span class="at">makeWidget</span>(<span class="st">&#39;Widget A&#39;</span><span class="op">,</span> <span class="st">&#39;foo&#39;</span>)<span class="op">;</span>
+<span class="co">// should print a warning to the console:</span>
+<span class="co">// &#39;Warning: WidgetUtilities.makeWidget is deprecated. Please use `new Widget(widgetName, widgetType)` instead.&#39;</span></code></pre></div>
+<aside class="notes">
+<p>In our previous example, we were using an object literal. But our new version of the library has a Widget class now.</p>
+<p>We don't want to break code that relies on the makeWidget method existing. But we also want to let devs know that the Widget class exists.</p>
+<p>Since decorators are just functions, we can pass arguments into them.</p>
+</aside>
+</section>
+<section id="deprecated-class-method-arguments-implementation" class="level2">
+<h2>Deprecated Class Method (arguments implementation)</h2>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">
+<span class="kw">function</span> <span class="at">deprecated</span>(message) <span class="op">{</span>
+
+  <span class="cf">return</span> <span class="kw">function</span>(target<span class="op">,</span> name<span class="op">,</span> descriptor) <span class="op">{</span>
+    <span class="kw">const</span> oldMethod <span class="op">=</span> target[name]<span class="op">;</span>
+
+    target[name] <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span>
+      <span class="va">console</span>.<span class="at">warn</span>(<span class="vs">`</span><span class="sc">${</span><span class="va">target</span>.<span class="va">constructor</span>.<span class="at">name</span><span class="sc">}</span><span class="vs">.</span><span class="sc">${</span>name<span class="sc">}</span><span class="vs"> is deprecated. </span><span class="sc">${</span>message<span class="sc">}</span><span class="vs">`</span>)<span class="op">;</span>
+      <span class="at">oldMethod</span>(...<span class="at">arguments</span>)<span class="op">;</span>
+    <span class="op">}</span>.<span class="at">bind</span>(target)<span class="op">;</span>
+    
+    <span class="cf">return</span> target<span class="op">;</span>
+  <span class="op">}</span>
+
+<span class="op">}</span></code></pre></div>
+<aside class="notes">
+<p>Remember how we didn't use parentheses when calling deprecated earlier?</p>
+<p>This is because the @ symbol handles calling the function with the required arguments.</p>
+<p>This also means that we can use a higher order function to take in arguments and then return a function that has the signature that is expected.</p>
+</aside>
+</section>
 </section>
 <section class="slide level1">
 
-<section id="a-real-example-angulars-input-method-decorator" class="level2">
-<h2>A Real Example: Angular's Input method decorator</h2>
+<section id="a-real-example-angulars-input-decorator" class="level2">
+<h2>A Real Example: Angular's Input decorator</h2>
 </section>
 <section id="input-usage" class="level2">
 <h2>Input (usage)</h2>
@@ -249,6 +252,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
   @<span class="at">Input</span>() <span class="dt">hero</span><span class="op">:</span> Hero<span class="op">;</span>
   @<span class="at">Input</span>(<span class="st">&#39;master&#39;</span>) <span class="dt">masterName</span><span class="op">:</span> string<span class="op">;</span>
 <span class="op">}</span></code></pre></div>
+<aside class="notes">
+<p>I borrowed this usage code from the Angular Tour of Heroes tutorial.</p>
+<p>There is a lot going on here. Let us ignore <span class="citation" data-cites="Component">@Component</span> for now and concentrate on Input.</p>
+<p>In Angular, an Input is a value or Prop passed down from a parent component.</p>
+</aside>
 </section>
 <section id="input-implementation" class="level2">
 <h2>Input (implementation)</h2>
@@ -285,6 +293,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
   (<span class="op">&lt;</span>any<span class="op">&gt;</span>PropDecoratorFactory).<span class="at">annotationCls</span> <span class="op">=</span> PropDecoratorFactory<span class="op">;</span>
   <span class="cf">return</span> PropDecoratorFactory<span class="op">;</span>
 <span class="op">}</span></code></pre></div>
+<aside class="notes">
+<p>There is a lot going on here. I don't even fully understand everything that is happening here yet.</p>
+<p>However, one thing that stands out to me is the use of the word Metadata in some of the function names.</p>
+<p>One purpose of this decorator is to make sure Angular is taking note of the fact that the html element for this component will be expecting attributes called hero and master.</p>
+<p>It does this so that it can warn you at compile time whether an expected attriubute is missing from the usage in the template.</p>
+<p>There is probably even more going on here but I want to concentrate on the metadata part.</p>
+</aside>
 </section>
 </section>
 <section class="slide level1">
@@ -316,13 +331,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <section id="component-metadata" class="level2">
 <h2><span class="citation" data-cites="Component">@Component</span> Metadata</h2>
 <figure>
-<img src="assets/component-metadata.jpg" alt="Component Metadata" /><figcaption>Component Metadata</figcaption>
+<img src="assets/component-metadata.jpg" />
 </figure>
 <aside class="notes">
 <p>When debugging your component implementation things like the selector, template, and styling would just be noise when trying to debug actual functionality.</p>
 <p>You might also notice that this has the template and styling as an inline string instead of the file references from the decorator.</p>
 <p>We can assume that this is how Angular is &quot;bundling&quot; templates during the js build process.</p>
-<p>The scss is also transformed into css with the variables and mixins already converted.</p>
+<p>The scss is also transformed into css with the variables and mixins already reconciled.</p>
 </aside>
 </section>
 </section>
