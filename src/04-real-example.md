@@ -1,4 +1,4 @@
-## A Real Example: Angular's Input method decorator
+## A Real Example: Angular's Input decorator
 
 ## Input (usage)
 
@@ -17,6 +17,14 @@ export class HeroChildComponent {
   @Input('master') masterName: string;
 }
 ```
+
+<div class="notes">
+I borrowed this usage code from the Angular Tour of Heroes tutorial.
+
+There is a lot going on here. Let us ignore @Component for now and concentrate on Input.
+
+In Angular, an Input is a value or Prop passed down from a parent component.
+</div>
 
 ## Input (implementation)
 
@@ -58,5 +66,17 @@ export function makePropDecorator(
   return PropDecoratorFactory;
 }
 ```
+
+<div class="notes">
+There is a lot going on here. I don't even fully understand everything that is happening here yet.
+
+However, one thing that stands out to me is the use of the word Metadata in some of the function names.
+
+One purpose of this decorator is to make sure Angular is taking note of the fact that the html element for this component will be expecting attributes called hero and master.
+
+It does this so that it can warn you at compile time whether an expected attriubute is missing from the usage in the template.
+
+There is probably even more going on here but I want to concentrate on the metadata part.
+</div>
 
 ---

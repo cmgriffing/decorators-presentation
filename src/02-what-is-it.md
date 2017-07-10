@@ -59,44 +59,6 @@ The bulk of the spec is unlikely to change.
 
 </div>
 
-## Basic Example (First Look)
-
-```javascript
-@annotation
-class MyClass { }
-
-function annotation(target) {
-   // Add a property on target
-   target.annotated = true;
-}
-
-// MyClass.annotated === true
-
-```
-
-<div class="notes">
-Not very complicated. We arent even using or showing all the arguments.
-</div>
-
-## Basic Example (Arguments)
-
-```javascript
-@isTestable(true)
-class MyClass { }
-
-function isTestable(value) {
-   return function decorator(target) {
-      target.isTestable = value;
-   }
-}
-
-// MyClass.isTestable === true
-```
-
-<div class="notes">
-Notice how we return the decorator signature but it has access to the arguments from the outer closure.
-</div>
-
 ## TypeScript Examples
 
 ![Angular2 decorators in action](assets/angular2-decorators.jpg)

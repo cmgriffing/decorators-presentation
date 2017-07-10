@@ -25,7 +25,7 @@ export class SalePropertyPageComponent implements OnInit {
 
 ## @Component Metadata
 
-![Component Metadata](assets/component-metadata.jpg)
+![](assets/component-metadata.jpg)
 
 <div class="notes">
 
@@ -35,7 +35,7 @@ You might also notice that this has the template and styling as an inline string
 
 We can assume that this is how Angular is "bundling" templates during the js build process.
 
-The scss is also transformed into css with the variables and mixins already converted.
+The scss is also transformed into css with the variables and mixins already reconciled.
 </div>
 
 ---
