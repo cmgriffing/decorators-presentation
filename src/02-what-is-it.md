@@ -44,12 +44,14 @@ Yehuda's interest?
 
 ## Availability
 - TypeScript
-- Babel? (kind of, but not really. WIP)
+- Babel
 
 <div class="notes">
 
+Both TypeScript and Babel currently only support the Stage-0 version of the spec.
+
 - Babel Stage-2 transform is in progress.
-- Legacy transform will be Babel 7 default.
+- Legacy (stage-0) transform will be Babel 7 default.
     (mimics Babel 5 decorator behavior that is likely to change)
 
 The difference?
@@ -59,9 +61,9 @@ The bulk of the spec is unlikely to change.
 
 </div>
 
-## TypeScript Examples
+## Angular Examples
 
-![Angular2 decorators in action](assets/angular2-decorators.jpg)
+![](assets/angular2-decorators.jpg)
 
 <div class="notes">
 Angular2 makes heavy use of decorators.
