@@ -1,3 +1,3 @@
-# Decorators
+# Diving Into Decorators
 
 ---
