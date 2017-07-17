@@ -64,8 +64,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
     <div class="slides">
 
 
-<section id="decorators" class="slide level1">
-<h1>Decorators</h1>
+<section id="diving-into-decorators" class="slide level1">
+<h1>Diving Into Decorators</h1>
 </section>
 <section class="slide level1">
 
@@ -113,21 +113,22 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2>Availability</h2>
 <ul>
 <li>TypeScript</li>
-<li>Babel? (kind of, but not really. WIP)</li>
+<li>Babel</li>
 </ul>
 <aside class="notes">
+<p>Both TypeScript and Babel currently only support the Stage-0 version of the spec.</p>
 <ul>
 <li>Babel Stage-2 transform is in progress.</li>
-<li>Legacy transform will be Babel 7 default. (mimics Babel 5 decorator behavior that is likely to change)</li>
+<li>Legacy (stage-0) transform will be Babel 7 default. (mimics Babel 5 decorator behavior that is likely to change)</li>
 </ul>
 <p>The difference? The spec may change regarding the execution model. eg: the parameters you receive and order of operations.</p>
 <p>The bulk of the spec is unlikely to change.</p>
 </aside>
 </section>
-<section id="typescript-examples" class="level2">
-<h2>TypeScript Examples</h2>
+<section id="angular-examples" class="level2">
+<h2>Angular Examples</h2>
 <figure>
-<img src="assets/angular2-decorators.jpg" alt="Angular2 decorators in action" /><figcaption>Angular2 decorators in action</figcaption>
+<img src="assets/angular2-decorators.jpg" />
 </figure>
 <aside class="notes">
 <p>Angular2 makes heavy use of decorators.</p>
@@ -229,6 +230,47 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>This is because the @ symbol handles calling the function with the required arguments.</p>
 <p>This also means that we can use a higher order function to take in arguments and then return a function that has the signature that is expected.</p>
 </aside>
+</section>
+<section id="stacking" class="level2">
+<h2>Stacking</h2>
+<pre><code>class WidgetUtilities {
+
+  @deprecated()
+  // measures the time it take to execute the method
+  @time() 
+  makeWidget(widgetName, widgetType) {
+    return {
+      widgetName: widgetName.toLowerCase(),
+      widgetType: widgetType.toLowerCase()
+    }
+  }
+
+}
+</code></pre>
+<aside class="notes">
+<p>We can stack multiple decorators. The order sometimes matters though.</p>
+<p>In this example, our timing function could be skewed in an unintended way if we are careless about the order.</p>
+</aside>
+</section>
+<section id="decorator-libraries" class="level2">
+<h2>Decorator Libraries</h2>
+<section id="core-decorators" class="level3">
+<h3>Core Decorators</h3>
+<p><a href="https://github.com/jayphelps/core-decorators.js" class="uri">https://github.com/jayphelps/core-decorators.js</a></p>
+<ul>
+<li>inspired by languages that come with built-ins like @​override, @​deprecate, @​autobind, etc.</li>
+</ul>
+</section>
+<section id="lodash-decorators" class="level3">
+<h3>Lodash-Decorators</h3>
+<p><a href="https://github.com/steelsojka/lodash-decorators" class="uri">https://github.com/steelsojka/lodash-decorators</a></p>
+<ul>
+<li>A collection of decorators using lodash at it's core. (<span class="citation" data-cites="Memoize">@Memoize</span>, <span class="citation" data-cites="Debounce">@Debounce</span>, <span class="citation" data-cites="Throttle">@Throttle</span>, etc.)</li>
+</ul>
+<aside class="notes">
+<p>It is important to note that these libraries still use the stage-0 spec implementation. Core Decorators plans on updating once a compiler (Babel or TypeScript) implements the stage-2+ spec.</p>
+</aside>
+</section>
 </section>
 </section>
 <section class="slide level1">
