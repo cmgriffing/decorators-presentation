@@ -99,4 +99,49 @@ This is because the @ symbol handles calling the function with the required argu
 This also means that we can use a higher order function to take in arguments and then return a function that has the signature that is expected.
 </div>
 
+## Stacking
+
+```
+class WidgetUtilities {
+
+  @deprecated()
+  // measures the time it take to execute the method
+  @time() 
+  makeWidget(widgetName, widgetType) {
+    return {
+      widgetName: widgetName.toLowerCase(),
+      widgetType: widgetType.toLowerCase()
+    }
+  }
+
+}
+
+```
+
+<div class="notes">
+
+We can stack multiple decorators. The order sometimes matters though.
+
+In this example, our timing function could be skewed in an unintended way if we are careless about the order.
+
+</div>
+
+## Decorator Libraries
+
+### Core Decorators
+[https://github.com/jayphelps/core-decorators.js](https://github.com/jayphelps/core-decorators.js)
+
+- inspired by languages that come with built-ins like @​override, @​deprecate, @​autobind, etc.
+
+### Lodash-Decorators
+[https://github.com/steelsojka/lodash-decorators](https://github.com/steelsojka/lodash-decorators)
+
+- A collection of decorators using lodash at it's core. (@Memoize, @Debounce, @Throttle, etc.)
+
+<div class="notes">
+
+It is important to note that these libraries still use the stage-0 spec implementation. Core Decorators plans on updating once a compiler (Babel or TypeScript) implements the stage-2+ spec.
+
+</div>
+
 ---
