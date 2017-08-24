@@ -144,4 +144,8 @@ It is important to note that these libraries still use the stage-0 spec implemen
 
 </div>
 
+##
+
+![](assets/good-dive.gif)
+
 ---

@@ -7,3 +7,7 @@
 - [reflect-metadata](https://rbuckton.github.io/reflect-metadata/): A polyfill for reflection and metadata
 
 - [TypeScript Playground](https://www.typescriptlang.org/play/): An online repl for toying with decorators and seeing how typsecript turns it into ES5.
+
+## Ready To Dive in Yourself
+
+![](assets/high-dive.gif)
