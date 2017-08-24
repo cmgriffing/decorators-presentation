@@ -69,6 +69,29 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </section>
 <section class="slide level1">
 
+<section id="poor-title" class="level2">
+<h2>Poor Title</h2>
+<p>Too many talks about &quot;diving&quot; into decorators.</p>
+<p>Todd Motto - <a href="https://toddmotto.com/angular-decorators" class="uri">https://toddmotto.com/angular-decorators</a></p>
+<p>This person - <a href="https://cabbageapps.com/fell-love-js-decorators/" class="uri">https://cabbageapps.com/fell-love-js-decorators/</a></p>
+<ul>
+<li><p>Python: <a href="https://www.codementor.io/moyosore/a-dive-into-python-closures-and-decorators-part-1-9mpr98pgr" class="uri">https://www.codementor.io/moyosore/a-dive-into-python-closures-and-decorators-part-1-9mpr98pgr</a></p></li>
+<li><p>Python: <a href="https://code.tutsplus.com/tutorials/deep-dive-into-python-decorators--cms-25629" class="uri">https://code.tutsplus.com/tutorials/deep-dive-into-python-decorators--cms-25629</a></p></li>
+</ul>
+<aside class="notes">
+<p>After making the slides and submitting the talk I realized that my title was nowhere near original.</p>
+<p>So, screw it! I'm doubling down.</p>
+</aside>
+</section>
+<section id="section" class="level2">
+<h2></h2>
+<figure>
+<img src="assets/bad-dive.gif" />
+</figure>
+</section>
+</section>
+<section class="slide level1">
+
 <section id="what-are-they" class="level2">
 <h2>What are they?</h2>
 <p>A decorator is:</p>
@@ -272,74 +295,47 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </aside>
 </section>
 </section>
+<section id="section-1" class="level2">
+<h2></h2>
+<figure>
+<img src="assets/good-dive.gif" />
+</figure>
+</section>
 </section>
 <section class="slide level1">
 
-<section id="a-real-example-angulars-input-decorator" class="level2">
-<h2>A Real Example: Angular's Input decorator</h2>
+<section id="a-real-example-angulars-component-decorator" class="level2">
+<h2>A Real Example: Angular's Component decorator</h2>
 </section>
-<section id="input-usage" class="level2">
-<h2>Input (usage)</h2>
+<section id="component-usage" class="level2">
+<h2>Component (usage)</h2>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="im">import</span> <span class="op">{</span> Component<span class="op">,</span> Input <span class="op">}</span> <span class="im">from</span> <span class="st">&#39;@angular/core&#39;</span><span class="op">;</span>
 <span class="im">import</span> <span class="op">{</span> Hero <span class="op">}</span> <span class="im">from</span> <span class="st">&#39;./hero&#39;</span><span class="op">;</span>
 @<span class="at">Component</span>(<span class="op">{</span>
   <span class="dt">selector</span><span class="op">:</span> <span class="st">&#39;hero-child&#39;</span><span class="op">,</span>
-  <span class="dt">template</span><span class="op">:</span> <span class="vs">`</span>
-<span class="vs">    &lt;h3&gt;{{hero.name}} says:&lt;/h3&gt;</span>
-<span class="vs">    &lt;p&gt;I, {{hero.name}}, am at your service, {{masterName}}.&lt;/p&gt;</span>
-<span class="vs">  `</span>
+  <span class="dt">templateUrl</span><span class="op">:</span> <span class="st">&#39;./hero-child.component.html&#39;</span><span class="op">,</span>
+  <span class="dt">styleUrls</span><span class="op">:</span> [<span class="st">&#39;./hero-child.component.scss&#39;</span>]
 <span class="op">}</span>)
 <span class="im">export</span> <span class="kw">class</span> HeroChildComponent <span class="op">{</span>
-  @<span class="at">Input</span>() <span class="dt">hero</span><span class="op">:</span> Hero<span class="op">;</span>
-  @<span class="at">Input</span>(<span class="st">&#39;master&#39;</span>) <span class="dt">masterName</span><span class="op">:</span> string<span class="op">;</span>
+  <span class="co">// ...</span>
 <span class="op">}</span></code></pre></div>
 <aside class="notes">
-<p>I borrowed this usage code from the Angular Tour of Heroes tutorial.</p>
-<p>There is a lot going on here. Let us ignore <span class="citation" data-cites="Component">@Component</span> for now and concentrate on Input.</p>
-<p>In Angular, an Input is a value or Prop passed down from a parent component.</p>
+<p>Here we see the template url and style urls.</p>
 </aside>
 </section>
-<section id="input-implementation" class="level2">
-<h2>Input (implementation)</h2>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">// the input decorator from @angular/angular/packages/core/src/metadata/directives.ts</span>
-<span class="im">export</span> <span class="kw">const</span> Input<span class="op">:</span> InputDecorator <span class="op">=</span>
-    <span class="at">makePropDecorator</span>(<span class="st">&#39;Input&#39;</span><span class="op">,</span> (bindingPropertyName<span class="op">?</span>: string) <span class="op">=&gt;</span> (<span class="op">{</span>bindingPropertyName<span class="op">}</span>))<span class="op">;</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">
-<span class="co">// the makePropDecorator utility method from @angular/angular/packages/core/src/util/decorators.ts</span>
-<span class="im">export</span> <span class="kw">function</span> <span class="at">makePropDecorator</span>(
-    name<span class="op">:</span> string<span class="op">,</span> props<span class="op">?</span>: (...<span class="at">args</span><span class="op">:</span> any[]) <span class="op">=&gt;</span> any<span class="op">,</span> parentClass<span class="op">?</span>: any)<span class="op">:</span> any <span class="op">{</span>
-  <span class="kw">const</span> metaCtor <span class="op">=</span> <span class="at">makeMetadataCtor</span>(props)<span class="op">;</span>
-
-  <span class="kw">function</span> <span class="at">PropDecoratorFactory</span>(...<span class="at">args</span><span class="op">:</span> any[])<span class="op">:</span> any <span class="op">{</span>
-    <span class="cf">if</span> (<span class="kw">this</span> <span class="kw">instanceof</span> PropDecoratorFactory) <span class="op">{</span>
-      <span class="va">metaCtor</span>.<span class="at">apply</span>(<span class="kw">this</span><span class="op">,</span> args)<span class="op">;</span>
-      <span class="cf">return</span> <span class="kw">this</span><span class="op">;</span>
-    <span class="op">}</span>
-
-    <span class="kw">const</span> decoratorInstance <span class="op">=</span> <span class="kw">new</span> (<span class="op">&lt;</span>any<span class="op">&gt;</span>PropDecoratorFactory)(...<span class="at">args</span>)<span class="op">;</span>
-
-    <span class="cf">return</span> <span class="kw">function</span> <span class="at">PropDecorator</span>(<span class="dt">target</span><span class="op">:</span> any<span class="op">,</span> <span class="dt">name</span><span class="op">:</span> string) <span class="op">{</span>
-      <span class="kw">const</span> meta <span class="op">=</span> <span class="va">Reflect</span>.<span class="at">getOwnMetadata</span>(<span class="st">&#39;propMetadata&#39;</span><span class="op">,</span> <span class="va">target</span>.<span class="at">constructor</span>) <span class="op">||</span> <span class="op">{};</span>
-      meta[name] <span class="op">=</span> <span class="va">meta</span>.<span class="at">hasOwnProperty</span>(name) <span class="op">&amp;&amp;</span> meta[name] <span class="op">||</span> []<span class="op">;</span>
-      meta[name].<span class="at">unshift</span>(decoratorInstance)<span class="op">;</span>
-      <span class="va">Reflect</span>.<span class="at">defineMetadata</span>(<span class="st">&#39;propMetadata&#39;</span><span class="op">,</span> meta<span class="op">,</span> <span class="va">target</span>.<span class="at">constructor</span>)<span class="op">;</span>
-    <span class="op">};</span>
-  <span class="op">}</span>
-
-  <span class="cf">if</span> (parentClass) <span class="op">{</span>
-    <span class="va">PropDecoratorFactory</span>.<span class="at">prototype</span> <span class="op">=</span> <span class="va">Object</span>.<span class="at">create</span>(<span class="va">parentClass</span>.<span class="at">prototype</span>)<span class="op">;</span>
-  <span class="op">}</span>
-
-  <span class="va">PropDecoratorFactory</span>.<span class="va">prototype</span>.<span class="at">toString</span> <span class="op">=</span> () <span class="op">=&gt;</span> <span class="vs">`@</span><span class="sc">${</span>name<span class="sc">}</span><span class="vs">`</span><span class="op">;</span>
-  (<span class="op">&lt;</span>any<span class="op">&gt;</span>PropDecoratorFactory).<span class="at">annotationCls</span> <span class="op">=</span> PropDecoratorFactory<span class="op">;</span>
-  <span class="cf">return</span> PropDecoratorFactory<span class="op">;</span>
-<span class="op">}</span></code></pre></div>
+<section id="after-compiling" class="level2">
+<h2>After compiling</h2>
+<figure>
+<img src="assets/component-metadata.jpg" />
+</figure>
+</section>
+<section id="logging-the-component-itself" class="level2">
+<h2>Logging the component itself</h2>
 <aside class="notes">
-<p>There is a lot going on here. I don't even fully understand everything that is happening here yet.</p>
-<p>However, one thing that stands out to me is the use of the word Metadata in some of the function names.</p>
-<p>One purpose of this decorator is to make sure Angular is taking note of the fact that the html element for this component will be expecting attributes called hero and master.</p>
-<p>It does this so that it can warn you at compile time whether an expected attriubute is missing from the usage in the template.</p>
-<p>There is probably even more going on here but I want to concentrate on the metadata part.</p>
+<p>When debugging your component implementation things like the selector, template, and styling would just be noise when trying to debug actual functionality.</p>
+<p>You might also notice that this has the template and styling as an inline string instead of the file references from the decorator.</p>
+<p>We can assume that this is how Angular is &quot;bundling&quot; templates during the js build process.</p>
+<p>The scss is also transformed into css with the variables and mixins already reconciled.</p>
 </aside>
 </section>
 </section>
@@ -358,29 +354,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>The name and type of its constructor arguments</li>
 </ul>
 </section>
-<section id="component-an-angular-based-example" class="level2">
-<h2><span class="citation" data-cites="Component">@Component</span>: An Angular-based example</h2>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">@<span class="at">Component</span>(<span class="op">{</span>
-  <span class="dt">selector</span><span class="op">:</span> <span class="st">&#39;iv-sale-property-page&#39;</span><span class="op">,</span>
-  <span class="dt">templateUrl</span><span class="op">:</span> <span class="st">&#39;./sale-property-page.component.html&#39;</span><span class="op">,</span>
-  <span class="dt">styleUrls</span><span class="op">:</span> [<span class="st">&#39;./sale-property-page.component.scss&#39;</span>]
-<span class="op">}</span>)
-<span class="im">export</span> <span class="kw">class</span> SalePropertyPageComponent <span class="kw">implements</span> OnInit <span class="op">{</span>
-  <span class="co">// ...</span>
-<span class="op">}</span></code></pre></div>
-</section>
-<section id="component-metadata" class="level2">
-<h2><span class="citation" data-cites="Component">@Component</span> Metadata</h2>
-<figure>
-<img src="assets/component-metadata.jpg" />
-</figure>
-<aside class="notes">
-<p>When debugging your component implementation things like the selector, template, and styling would just be noise when trying to debug actual functionality.</p>
-<p>You might also notice that this has the template and styling as an inline string instead of the file references from the decorator.</p>
-<p>We can assume that this is how Angular is &quot;bundling&quot; templates during the js build process.</p>
-<p>The scss is also transformed into css with the variables and mixins already reconciled.</p>
-</aside>
-</section>
 </section>
 <section class="slide level1">
 
@@ -392,6 +365,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><p><a href="https://rbuckton.github.io/reflect-metadata/">reflect-metadata</a>: A polyfill for reflection and metadata</p></li>
 <li><p><a href="https://www.typescriptlang.org/play/">TypeScript Playground</a>: An online repl for toying with decorators and seeing how typsecript turns it into ES5.</p></li>
 </ul>
+</section>
+<section id="ready-to-dive-in-yourself" class="level2">
+<h2>Ready To Dive in Yourself</h2>
+<figure>
+<img src="assets/high-dive.gif" />
+</figure>
 </section>
 </section>
     </div>
