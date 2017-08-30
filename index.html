@@ -133,20 +133,24 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </section>
 <section id="availability" class="level2">
 <h2>Availability</h2>
+<section id="typescript" class="level3">
+<h3>TypeScript</h3>
+<p>Currently uses Stage-0 version of spec</p>
+</section>
+<section id="babel" class="level3">
+<h3>Babel</h3>
 <ul>
-<li>TypeScript (Currently uses Stage-0 version of spec)</li>
-<li>Babel</li>
-<li><a href="https://github.com/loganfsmyth/babel-plugin-transform-decorators-legacy">Stage-0 Legacy transform</a></li>
-<li><a href="https://github.com/babel/proposals/issues/11">Stage-2: Work In Progress (Babel proposal)</a></li>
+<li><p><a href="https://github.com/loganfsmyth/babel-plugin-transform-decorators-legacy">Stage-0 Legacy transform</a></p></li>
+<li><p><a href="https://github.com/babel/proposals/issues/11">Stage-2 Transform (Work In Progress as a Babel Proposal)</a></p></li>
 </ul>
 <aside class="notes">
 <p>Both TypeScript and Babel currently only support the Stage-0 version of the spec.</p>
 <ul>
 <li>Babel Stage-2 transform is in progress.</li>
-<li>Legacy (stage-0) transform will be Babel 7 default. (mimics Babel 5 decorator behavior that is likely to change)</li>
+<li>Legacy (Stage-0) transform will be Babel 7 default. (mimics Babel 5 decorator behavior)</li>
 </ul>
-<p>The bulk of the spec is unlikely to change.</p>
 </aside>
+</section>
 </section>
 <section id="angular-examples" class="level2">
 <h2>Angular Examples</h2>
@@ -280,7 +284,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h3>Core Decorators</h3>
 <p><a href="https://github.com/jayphelps/core-decorators.js" class="uri">https://github.com/jayphelps/core-decorators.js</a></p>
 <ul>
-<li>inspired by languages that come with built-ins like @​override, @​deprecate, @​autobind, etc.</li>
+<li>inspired by languages that come with built-ins: @​override, @​deprecate, @​autobind, etc.</li>
 </ul>
 </section>
 <section id="lodash-decorators" class="level3">
@@ -290,7 +294,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>A collection of decorators using lodash at it's core. (<span class="citation" data-cites="Memoize">@Memoize</span>, <span class="citation" data-cites="Debounce">@Debounce</span>, <span class="citation" data-cites="Throttle">@Throttle</span>, etc.)</li>
 </ul>
 <aside class="notes">
-<p>It is important to note that these libraries still use the stage-0 spec implementation. Core Decorators plans on updating once a compiler (Babel or TypeScript) implements the stage-2+ spec.</p>
+<p>Just like lodash, you can import only what you need and avoid bloating your application.</p>
+<p>It is important to note that these libraries still use the stage-0 spec implementation.</p>
+<p>Core Decorators plans on updating once a compiler (Babel or TypeScript) implements the stage-2+ spec.</p>
 </aside>
 </section>
 </section>
@@ -411,6 +417,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </section>
 <section id="ready-to-dive-in-yourself" class="level2">
 <h2>Ready To Dive in Yourself</h2>
+<aside class="notes">
+<p>Hopefully I've helped you start diving in.</p>
+<p>Now you are ready to start diving in your own way.</p>
+</aside>
 <figure>
 <img src="assets/high-dive.gif" />
 </figure>
