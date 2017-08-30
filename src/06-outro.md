@@ -14,4 +14,4 @@ Hopefully I've helped you start diving in.
 Now you are ready to start diving in your own way.
 </div>
 
-![](assets/high-dive.gif)
+![](assets/triple-lindy.gif)
