@@ -11,12 +11,16 @@ import { Hero } from './hero';
   styleUrls: ['./hero-child.component.scss']
 })
 export class HeroChildComponent {
+  Input()
+  hero: Hero;
   // ...
 }
 ```
 
 <div class="notes">
 Here we see the template url and style urls.
+
+When debugging your component implementation things like the selector, template, and styling would just be noise when trying to debug actual functionality.
 </div>
 
 ## After compiling
@@ -25,9 +29,9 @@ Here we see the template url and style urls.
 
 ## Logging the component itself
 
-<div class="notes">
+![](assets/logged-component.jpg)
 
-When debugging your component implementation things like the selector, template, and styling would just be noise when trying to debug actual functionality.
+<div class="notes">
 
 You might also notice that this has the template and styling as an inline string instead of the file references from the decorator.
 

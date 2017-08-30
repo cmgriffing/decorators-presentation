@@ -101,7 +101,7 @@ This also means that we can use a higher order function to take in arguments and
 
 ## Stacking
 
-```
+```javascript
 class WidgetUtilities {
 
   @deprecated()

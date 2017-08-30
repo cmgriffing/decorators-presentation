@@ -21,8 +21,8 @@ Bares most similarity to Python decorators and is also the likely source of the 
 
 **Stage-2 (draft)**: Authored by Yehuda Katz of Ember fame
     
-- (http://tc39.github.io/proposal-decorators/)
-- (https://github.com/wycats/javascript-decorators)
+- [http://tc39.github.io/proposal-decorators/](http://tc39.github.io/proposal-decorators/)
+- [https://github.com/wycats/javascript-decorators](https://github.com/wycats/javascript-decorators)
 
 <div class="notes">
 
@@ -30,21 +30,19 @@ According to the tc39 process:
 
 Stage-2:
 
-- The proposal must now additionally have a formal description of the syntax and semantics of the feature.
-- The description should be as complete as possible, but can contain todos and placeholders.
-- Two experimental implementations of the feature are needed, but one of them can be in a transpiler such as Babel. (in this case: Babel, Typescript)
+- formal description of syntax and semantics
+- decription must be as complete as possible
+- Two experimental implementations. but one of them can be in a transpiler
 
 * Only incremental changes are expected from now on.
-
-Yehuda's interest?
-- Glimmer is written in Typescript
-- Yehuda previously wrote about implementing Python decorators in Ruby back in 2009
 
 </div>
 
 ## Availability
-- TypeScript
+- TypeScript (Currently uses Stage-0 version of spec)
 - Babel
+  - [Stage-0 Legacy transform](https://github.com/loganfsmyth/babel-plugin-transform-decorators-legacy)
+  - [Stage-2: Work In Progress (Babel proposal)](https://github.com/babel/proposals/issues/11)
 
 <div class="notes">
 
@@ -53,9 +51,6 @@ Both TypeScript and Babel currently only support the Stage-0 version of the spec
 - Babel Stage-2 transform is in progress.
 - Legacy (stage-0) transform will be Babel 7 default.
     (mimics Babel 5 decorator behavior that is likely to change)
-
-The difference?
-The spec may change regarding the execution model. eg: the parameters you receive and order of operations.
 
 The bulk of the spec is unlikely to change.
 
