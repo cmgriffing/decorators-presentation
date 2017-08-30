@@ -72,15 +72,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <section id="poor-title" class="level2">
 <h2>Poor Title</h2>
 <p>Too many talks about &quot;diving&quot; into decorators.</p>
-<p>Todd Motto - <a href="https://toddmotto.com/angular-decorators" class="uri">https://toddmotto.com/angular-decorators</a></p>
-<p>This person - <a href="https://cabbageapps.com/fell-love-js-decorators/" class="uri">https://cabbageapps.com/fell-love-js-decorators/</a></p>
 <ul>
-<li><p>Python: <a href="https://www.codementor.io/moyosore/a-dive-into-python-closures-and-decorators-part-1-9mpr98pgr" class="uri">https://www.codementor.io/moyosore/a-dive-into-python-closures-and-decorators-part-1-9mpr98pgr</a></p></li>
-<li><p>Python: <a href="https://code.tutsplus.com/tutorials/deep-dive-into-python-decorators--cms-25629" class="uri">https://code.tutsplus.com/tutorials/deep-dive-into-python-decorators--cms-25629</a></p></li>
+<li><p>Todd Motto - <a href="https://toddmotto.com/angular-decorators" class="uri">https://toddmotto.com/angular-decorators</a></p></li>
+<li><p>This person - <a href="https://cabbageapps.com/fell-love-js-decorators/" class="uri">https://cabbageapps.com/fell-love-js-decorators/</a></p></li>
+<li><p><a href="https://www.codementor.io/moyosore/a-dive-into-python-closures-and-decorators-part-1-9mpr98pgr">A Python One</a></p></li>
+<li><p><a href="https://code.tutsplus.com/tutorials/deep-dive-into-python-decorators--cms-25629">Another Python One</a></p></li>
 </ul>
 <aside class="notes">
 <p>After making the slides and submitting the talk I realized that my title was nowhere near original.</p>
-<p>So, screw it! I'm doubling down.</p>
+<p>So, screw it! I'm just going to dive into the diving metaphor. I hope it doesnt hurt too much.</p>
 </aside>
 </section>
 <section id="section" class="level2">
@@ -117,26 +117,27 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2>The Spec Proposal</h2>
 <p><strong>Stage-2 (draft)</strong>: Authored by Yehuda Katz of Ember fame</p>
 <ul>
-<li>(http://tc39.github.io/proposal-decorators/)</li>
-<li>(https://github.com/wycats/javascript-decorators)</li>
+<li><a href="http://tc39.github.io/proposal-decorators/" class="uri">http://tc39.github.io/proposal-decorators/</a></li>
+<li><a href="https://github.com/wycats/javascript-decorators" class="uri">https://github.com/wycats/javascript-decorators</a></li>
 </ul>
 <aside class="notes">
 <p>According to the tc39 process:</p>
 <p>Stage-2:</p>
 <ul>
-<li>The proposal must now additionally have a formal description of the syntax and semantics of the feature.</li>
-<li>The description should be as complete as possible, but can contain todos and placeholders.</li>
-<li><p>Two experimental implementations of the feature are needed, but one of them can be in a transpiler such as Babel. (in this case: Babel, Typescript)</p></li>
+<li>formal description of syntax and semantics</li>
+<li>decription must be as complete as possible</li>
+<li><p>Two experimental implementations. but one of them can be in a transpiler</p></li>
 <li><p>Only incremental changes are expected from now on.</p></li>
 </ul>
-<p>Yehuda's interest? - Glimmer is written in Typescript - Yehuda previously wrote about implementing Python decorators in Ruby back in 2009</p>
 </aside>
 </section>
 <section id="availability" class="level2">
 <h2>Availability</h2>
 <ul>
-<li>TypeScript</li>
+<li>TypeScript (Currently uses Stage-0 version of spec)</li>
 <li>Babel</li>
+<li><a href="https://github.com/loganfsmyth/babel-plugin-transform-decorators-legacy">Stage-0 Legacy transform</a></li>
+<li><a href="https://github.com/babel/proposals/issues/11">Stage-2: Work In Progress (Babel proposal)</a></li>
 </ul>
 <aside class="notes">
 <p>Both TypeScript and Babel currently only support the Stage-0 version of the spec.</p>
@@ -144,7 +145,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Babel Stage-2 transform is in progress.</li>
 <li>Legacy (stage-0) transform will be Babel 7 default. (mimics Babel 5 decorator behavior that is likely to change)</li>
 </ul>
-<p>The difference? The spec may change regarding the execution model. eg: the parameters you receive and order of operations.</p>
 <p>The bulk of the spec is unlikely to change.</p>
 </aside>
 </section>
@@ -256,20 +256,19 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </section>
 <section id="stacking" class="level2">
 <h2>Stacking</h2>
-<pre><code>class WidgetUtilities {
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">class</span> WidgetUtilities <span class="op">{</span>
 
-  @deprecated()
-  // measures the time it take to execute the method
-  @time() 
-  makeWidget(widgetName, widgetType) {
-    return {
-      widgetName: widgetName.toLowerCase(),
-      widgetType: widgetType.toLowerCase()
-    }
-  }
+  @<span class="at">deprecated</span>()
+  <span class="co">// measures the time it take to execute the method</span>
+  @<span class="at">time</span>() 
+  <span class="at">makeWidget</span>(widgetName<span class="op">,</span> widgetType) <span class="op">{</span>
+    <span class="cf">return</span> <span class="op">{</span>
+      <span class="dt">widgetName</span><span class="op">:</span> <span class="va">widgetName</span>.<span class="at">toLowerCase</span>()<span class="op">,</span>
+      <span class="dt">widgetType</span><span class="op">:</span> <span class="va">widgetType</span>.<span class="at">toLowerCase</span>()
+    <span class="op">}</span>
+  <span class="op">}</span>
 
-}
-</code></pre>
+<span class="op">}</span></code></pre></div>
 <aside class="notes">
 <p>We can stack multiple decorators. The order sometimes matters though.</p>
 <p>In this example, our timing function could be skewed in an unintended way if we are careless about the order.</p>
@@ -317,10 +316,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
   <span class="dt">styleUrls</span><span class="op">:</span> [<span class="st">&#39;./hero-child.component.scss&#39;</span>]
 <span class="op">}</span>)
 <span class="im">export</span> <span class="kw">class</span> HeroChildComponent <span class="op">{</span>
+  <span class="at">Input</span>()
+  <span class="dt">hero</span><span class="op">:</span> Hero<span class="op">;</span>
   <span class="co">// ...</span>
 <span class="op">}</span></code></pre></div>
 <aside class="notes">
 <p>Here we see the template url and style urls.</p>
+<p>When debugging your component implementation things like the selector, template, and styling would just be noise when trying to debug actual functionality.</p>
 </aside>
 </section>
 <section id="after-compiling" class="level2">
@@ -331,8 +333,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </section>
 <section id="logging-the-component-itself" class="level2">
 <h2>Logging the component itself</h2>
+<figure>
+<img src="assets/logged-component.jpg" />
+</figure>
 <aside class="notes">
-<p>When debugging your component implementation things like the selector, template, and styling would just be noise when trying to debug actual functionality.</p>
 <p>You might also notice that this has the template and styling as an inline string instead of the file references from the decorator.</p>
 <p>We can assume that this is how Angular is &quot;bundling&quot; templates during the js build process.</p>
 <p>The scss is also transformed into css with the variables and mixins already reconciled.</p>
@@ -354,6 +358,46 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>The name and type of its constructor arguments</li>
 </ul>
 </section>
+<section id="specshim" class="level2">
+<h2>Spec/Shim</h2>
+<p>The Spec: <a href="https://rbuckton.github.io/reflect-metadata/" class="uri">https://rbuckton.github.io/reflect-metadata/</a></p>
+<p>The shim/repo: <a href="https://github.com/rbuckton/reflect-metadata" class="uri">https://github.com/rbuckton/reflect-metadata</a></p>
+</section>
+<section id="general-usage-object-or-property" class="level2">
+<h2>General Usage (object or property)</h2>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">Reflect</span>.<span class="at">defineMetadata</span>(metadataKey<span class="op">,</span> metadataValue<span class="op">,</span> target)<span class="op">;</span>
+<span class="va">Reflect</span>.<span class="at">defineMetadata</span>(metadataKey<span class="op">,</span> metadataValue<span class="op">,</span> target<span class="op">,</span> propertyKey)<span class="op">;</span>
+
+<span class="co">// check for presence of a metadata key on the prototype chain of an object or property</span>
+<span class="kw">let</span> result <span class="op">=</span> <span class="va">Reflect</span>.<span class="at">hasMetadata</span>(metadataKey<span class="op">,</span> target)<span class="op">;</span>
+<span class="kw">let</span> result <span class="op">=</span> <span class="va">Reflect</span>.<span class="at">hasMetadata</span>(metadataKey<span class="op">,</span> target<span class="op">,</span> propertyKey)<span class="op">;</span></code></pre></div>
+</section>
+<section id="methods" class="level2">
+<h2>Methods</h2>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">// define metadata on an object</span>
+<span class="va">Reflect</span>.<span class="at">defineMetadata</span>(metadataKey<span class="op">,</span> metadataValue<span class="op">,</span> target)<span class="op">;</span>
+
+<span class="co">// check for presence of a metadata key on the prototype chain of an object</span>
+<span class="kw">let</span> result <span class="op">=</span> <span class="va">Reflect</span>.<span class="at">hasMetadata</span>(metadataKey<span class="op">,</span> target)<span class="op">;</span>
+
+<span class="co">// check for presence of an own metadata key of an object</span>
+<span class="kw">let</span> result <span class="op">=</span> <span class="va">Reflect</span>.<span class="at">hasOwnMetadata</span>(metadataKey<span class="op">,</span> target)<span class="op">;</span>
+
+<span class="co">// get metadata value of a metadata key on the prototype chain of an object</span>
+<span class="kw">let</span> result <span class="op">=</span> <span class="va">Reflect</span>.<span class="at">getMetadata</span>(metadataKey<span class="op">,</span> target)<span class="op">;</span>
+
+<span class="co">// get metadata value of an own metadata key of an object</span>
+<span class="kw">let</span> result <span class="op">=</span> <span class="va">Reflect</span>.<span class="at">getOwnMetadata</span>(metadataKey<span class="op">,</span> target)<span class="op">;</span>
+
+<span class="co">// get all metadata keys on the prototype chain of an object</span>
+<span class="kw">let</span> result <span class="op">=</span> <span class="va">Reflect</span>.<span class="at">getMetadataKeys</span>(target)<span class="op">;</span>
+
+<span class="co">// get all own metadata keys of an object</span>
+<span class="kw">let</span> result <span class="op">=</span> <span class="va">Reflect</span>.<span class="at">getOwnMetadataKeys</span>(target)<span class="op">;</span>
+
+<span class="co">// delete metadata from an object</span>
+<span class="kw">let</span> result <span class="op">=</span> <span class="va">Reflect</span>.<span class="at">deleteMetadata</span>(metadataKey<span class="op">,</span> target)<span class="op">;</span></code></pre></div>
+</section>
 </section>
 <section class="slide level1">
 
@@ -362,7 +406,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <ul>
 <li><p><a href="https://tc39.github.io/proposal-decorators/">The Specification</a></p></li>
 <li><p><a href="http://blog.wolksoftware.com/decorators-reflection-javascript-typescript">wolksoftware.com</a>: A 4-part blog series thoroughly explaining decorators</p></li>
-<li><p><a href="https://rbuckton.github.io/reflect-metadata/">reflect-metadata</a>: A polyfill for reflection and metadata</p></li>
 <li><p><a href="https://www.typescriptlang.org/play/">TypeScript Playground</a>: An online repl for toying with decorators and seeing how typsecript turns it into ES5.</p></li>
 </ul>
 </section>
