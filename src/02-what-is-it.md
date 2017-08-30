@@ -39,20 +39,22 @@ Stage-2:
 </div>
 
 ## Availability
-- TypeScript (Currently uses Stage-0 version of spec)
-- Babel
-  - [Stage-0 Legacy transform](https://github.com/loganfsmyth/babel-plugin-transform-decorators-legacy)
-  - [Stage-2: Work In Progress (Babel proposal)](https://github.com/babel/proposals/issues/11)
+### TypeScript
+
+Currently uses Stage-0 version of spec
+
+### Babel
+
+* [Stage-0 Legacy transform](https://github.com/loganfsmyth/babel-plugin-transform-decorators-legacy)
+
+* [Stage-2 Transform (Work In Progress as a Babel Proposal) ](https://github.com/babel/proposals/issues/11)
 
 <div class="notes">
 
 Both TypeScript and Babel currently only support the Stage-0 version of the spec.
 
 - Babel Stage-2 transform is in progress.
-- Legacy (stage-0) transform will be Babel 7 default.
-    (mimics Babel 5 decorator behavior that is likely to change)
-
-The bulk of the spec is unlikely to change.
+- Legacy (Stage-0) transform will be Babel 7 default. (mimics Babel 5 decorator behavior)
 
 </div>
 

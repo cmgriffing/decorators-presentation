@@ -131,7 +131,7 @@ In this example, our timing function could be skewed in an unintended way if we 
 ### Core Decorators
 [https://github.com/jayphelps/core-decorators.js](https://github.com/jayphelps/core-decorators.js)
 
-- inspired by languages that come with built-ins like @​override, @​deprecate, @​autobind, etc.
+- inspired by languages that come with built-ins: @​override, @​deprecate, @​autobind, etc.
 
 ### Lodash-Decorators
 [https://github.com/steelsojka/lodash-decorators](https://github.com/steelsojka/lodash-decorators)
@@ -140,7 +140,11 @@ In this example, our timing function could be skewed in an unintended way if we 
 
 <div class="notes">
 
-It is important to note that these libraries still use the stage-0 spec implementation. Core Decorators plans on updating once a compiler (Babel or TypeScript) implements the stage-2+ spec.
+Just like lodash, you can import only what you need and avoid bloating your application.
+
+It is important to note that these libraries still use the stage-0 spec implementation.
+
+Core Decorators plans on updating once a compiler (Babel or TypeScript) implements the stage-2+ spec.
 
 </div>
 

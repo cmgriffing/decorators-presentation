@@ -8,4 +8,10 @@
 
 ## Ready To Dive in Yourself
 
+<div class="notes">
+Hopefully I've helped you start diving in.
+
+Now you are ready to start diving in your own way.
+</div>
+
 ![](assets/high-dive.gif)
