@@ -15,3 +15,9 @@ Now you are ready to start diving in your own way.
 </div>
 
 ![](assets/triple-lindy.gif)
+
+<style class="styling-overrides">
+code {
+  background: white;
+}
+</style>

@@ -14,7 +14,7 @@ A decorator is:
 - **C#**: Attributes
 
 <div class="notes">
-Bares most similarity to Python decorators and is also the likely source of the name, decorators
+Bares most similarity to Python decorators and is also the likely source of the name "Decorators"
 </div>
 
 ## The Spec Proposal
