@@ -203,15 +203,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2>Deprecated Class Method (implementation)</h2>
 <div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">
 <span class="kw">function</span> <span class="at">deprecated</span>(target<span class="op">,</span> name<span class="op">,</span> descriptor) <span class="op">{</span>
-  <span class="kw">const</span> oldMethod <span class="op">=</span> target[name]<span class="op">;</span>
+  <span class="kw">const</span> oldMethod <span class="op">=</span> <span class="va">descriptor</span>.<span class="at">value</span><span class="op">;</span>
 
-  target[name] <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span>
+  <span class="va">descriptor</span>.<span class="at">value</span> <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span>
     <span class="va">console</span>.<span class="at">warn</span>(<span class="vs">`Warning: </span><span class="sc">${</span><span class="va">target</span>.<span class="va">constructor</span>.<span class="at">name</span><span class="sc">}</span><span class="vs">.</span><span class="sc">${</span>name<span class="sc">}</span><span class="vs"> is deprecated.`</span>)<span class="op">;</span>
     <span class="at">oldMethod</span>(...<span class="at">arguments</span>)<span class="op">;</span>
   <span class="op">}</span>.<span class="at">bind</span>(target)<span class="op">;</span>
   
-  <span class="cf">return</span> target<span class="op">;</span>
+  <span class="cf">return</span> descriptor<span class="op">;</span>
 <span class="op">}</span></code></pre></div>
+<p><a href="https://www.typescriptlang.org/play/#src=class%20WidgetUtilities%20%7B%0D%0A%0D%0A%20%20%40deprecated%0D%0A%20%20makeWidget(widgetName%2C%20widgetType)%20%7B%0D%0A%20%20%20%20return%20%7B%0D%0A%20%20%20%20%20%20widgetName%3A%20widgetName.toLowerCase()%2C%0D%0A%20%20%20%20%20%20widgetType%3A%20widgetType.toLowerCase()%0D%0A%20%20%20%20%7D%0D%0A%20%20%7D%0D%0A%0D%0A%7D%0D%0A%0D%0Aconst%20widgetUtilities%20%3D%20new%20WidgetUtilities()%3B%0D%0Aconst%20newWidget%20%3D%20widgetUtilities.makeWidget(&#39;Widget%20A&#39;%2C%20&#39;foo&#39;)%3B%0D%0A%0D%0Afunction%20deprecated(target%2C%20name%2C%20descriptor)%20%7B%0D%0A%20%20const%20oldMethod%20%3D%20descriptor.value%3B%0D%0A%0D%0A%20%20descriptor.value%20%3D%20function(...args)%20%7B%0D%0A%20%20%09console.warn(%60Warning%3A%20%24%7Btarget.constructor.name%7D.%24%7Bname%7D%20is%20deprecated.%60)%3B%0D%0A%20%20%20%20oldMethod(...args)%3B%0D%0A%20%20%7D.bind(target)%3B%0D%0A%20%20%0D%0A%20%20return%20descriptor%3B%0D%0A%7D">-&gt; Example in Typescript Playground</a></p>
 </section>
 <section id="deprecated-class-method-arguments-usage" class="level2">
 <h2>Deprecated Class Method (arguments usage)</h2>
@@ -241,14 +242,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="kw">function</span> <span class="at">deprecated</span>(message) <span class="op">{</span>
 
   <span class="cf">return</span> <span class="kw">function</span>(target<span class="op">,</span> name<span class="op">,</span> descriptor) <span class="op">{</span>
-    <span class="kw">const</span> oldMethod <span class="op">=</span> target[name]<span class="op">;</span>
+    <span class="kw">const</span> oldMethod <span class="op">=</span> <span class="va">descriptor</span>.<span class="at">value</span><span class="op">;</span>
 
-    target[name] <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span>
+    <span class="va">descriptor</span>.<span class="at">value</span> <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span>
       <span class="va">console</span>.<span class="at">warn</span>(<span class="vs">`</span><span class="sc">${</span><span class="va">target</span>.<span class="va">constructor</span>.<span class="at">name</span><span class="sc">}</span><span class="vs">.</span><span class="sc">${</span>name<span class="sc">}</span><span class="vs"> is deprecated. </span><span class="sc">${</span>message<span class="sc">}</span><span class="vs">`</span>)<span class="op">;</span>
       <span class="at">oldMethod</span>(...<span class="at">arguments</span>)<span class="op">;</span>
     <span class="op">}</span>.<span class="at">bind</span>(target)<span class="op">;</span>
     
-    <span class="cf">return</span> target<span class="op">;</span>
+    <span class="cf">return</span> descriptor<span class="op">;</span>
   <span class="op">}</span>
 
 <span class="op">}</span></code></pre></div>
