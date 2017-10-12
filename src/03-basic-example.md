@@ -30,17 +30,19 @@ Let us assume we have a library that other people will be using. We can't just r
 ```javascript
 
 function deprecated(target, name, descriptor) {
-  const oldMethod = target[name];
+  const oldMethod = descriptor.value;
 
-  target[name] = function() {
+  descriptor.value = function() {
   	console.warn(`Warning: ${target.constructor.name}.${name} is deprecated.`);
     oldMethod(...arguments);
   }.bind(target);
   
-  return target;
+  return descriptor;
 }
 
 ```
+
+[-> Example in Typescript Playground](https://www.typescriptlang.org/play/#src=class%20WidgetUtilities%20%7B%0D%0A%0D%0A%20%20%40deprecated%0D%0A%20%20makeWidget(widgetName%2C%20widgetType)%20%7B%0D%0A%20%20%20%20return%20%7B%0D%0A%20%20%20%20%20%20widgetName%3A%20widgetName.toLowerCase()%2C%0D%0A%20%20%20%20%20%20widgetType%3A%20widgetType.toLowerCase()%0D%0A%20%20%20%20%7D%0D%0A%20%20%7D%0D%0A%0D%0A%7D%0D%0A%0D%0Aconst%20widgetUtilities%20%3D%20new%20WidgetUtilities()%3B%0D%0Aconst%20newWidget%20%3D%20widgetUtilities.makeWidget('Widget%20A'%2C%20'foo')%3B%0D%0A%0D%0Afunction%20deprecated(target%2C%20name%2C%20descriptor)%20%7B%0D%0A%20%20const%20oldMethod%20%3D%20descriptor.value%3B%0D%0A%0D%0A%20%20descriptor.value%20%3D%20function(...args)%20%7B%0D%0A%20%20%09console.warn(%60Warning%3A%20%24%7Btarget.constructor.name%7D.%24%7Bname%7D%20is%20deprecated.%60)%3B%0D%0A%20%20%20%20oldMethod(...args)%3B%0D%0A%20%20%7D.bind(target)%3B%0D%0A%20%20%0D%0A%20%20return%20descriptor%3B%0D%0A%7D)
 
 ## Deprecated Class Method (arguments usage)
 
@@ -77,14 +79,14 @@ Since decorators are just functions, we can pass arguments into them.
 function deprecated(message) {
 
   return function(target, name, descriptor) {
-    const oldMethod = target[name];
+    const oldMethod = descriptor.value;
 
-    target[name] = function() {
+    descriptor.value = function() {
       console.warn(`${target.constructor.name}.${name} is deprecated. ${message}`);
       oldMethod(...arguments);
     }.bind(target);
     
-    return target;
+    return descriptor;
   }
 
 }
