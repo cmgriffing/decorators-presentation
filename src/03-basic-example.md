@@ -108,7 +108,7 @@ class WidgetUtilities {
 
   @deprecated()
   // measures the time it take to execute the method
-  @time() 
+  @time()
   makeWidget(widgetName, widgetType) {
     return {
       widgetName: widgetName.toLowerCase(),
@@ -126,6 +126,32 @@ We can stack multiple decorators. The order sometimes matters though.
 
 In this example, our timing function could be skewed in an unintended way if we are careless about the order.
 
+</div>
+
+## Stacking (contd.)
+
+```javascript
+class WidgetUtilities {
+
+  makeWidget =
+    deprecated(
+      time(function(widgetName, widgetType) {
+        return {
+          widgetName: widgetName.toLowerCase(),
+          widgetType: widgetType.toLowerCase()
+        }
+      })
+    )
+
+}
+```
+
+<div class="notes">
+You can think of the stacking in a similar way to this.
+
+The implementations would be slightly different, but the end result would be the same.
+
+As you can see, decorators are a little bit cleaner as you add more levels.
 </div>
 
 ## Decorator Libraries
