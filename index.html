@@ -265,7 +265,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
   @<span class="at">deprecated</span>()
   <span class="co">// measures the time it take to execute the method</span>
-  @<span class="at">time</span>() 
+  @<span class="at">time</span>()
   <span class="at">makeWidget</span>(widgetName<span class="op">,</span> widgetType) <span class="op">{</span>
     <span class="cf">return</span> <span class="op">{</span>
       <span class="dt">widgetName</span><span class="op">:</span> <span class="va">widgetName</span>.<span class="at">toLowerCase</span>()<span class="op">,</span>
@@ -277,6 +277,27 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <aside class="notes">
 <p>We can stack multiple decorators. The order sometimes matters though.</p>
 <p>In this example, our timing function could be skewed in an unintended way if we are careless about the order.</p>
+</aside>
+</section>
+<section id="stacking-contd." class="level2">
+<h2>Stacking (contd.)</h2>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">class</span> WidgetUtilities <span class="op">{</span>
+
+  makeWidget <span class="op">=</span>
+    <span class="at">deprecated</span>(
+      <span class="at">time</span>(<span class="kw">function</span>(widgetName<span class="op">,</span> widgetType) <span class="op">{</span>
+        <span class="cf">return</span> <span class="op">{</span>
+          <span class="dt">widgetName</span><span class="op">:</span> <span class="va">widgetName</span>.<span class="at">toLowerCase</span>()<span class="op">,</span>
+          <span class="dt">widgetType</span><span class="op">:</span> <span class="va">widgetType</span>.<span class="at">toLowerCase</span>()
+        <span class="op">}</span>
+      <span class="op">}</span>)
+    )
+
+<span class="op">}</span></code></pre></div>
+<aside class="notes">
+<p>You can think of the stacking in a similar way to this.</p>
+<p>The implementations would be slightly different, but the end result would be the same.</p>
+<p>As you can see, decorators are a little bit cleaner as you add more levels.</p>
 </aside>
 </section>
 <section id="decorator-libraries" class="level2">
