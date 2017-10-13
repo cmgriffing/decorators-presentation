@@ -130,17 +130,33 @@ In this example, our timing function could be skewed in an unintended way if we 
 
 ## Stacking (contd.)
 
+
 ```javascript
+// example a
 class WidgetUtilities {
 
-  makeWidget =
+  makeWidget = deprecated( time( function(widgetName, widgetType) {
+    return {
+      widgetName: widgetName.toLowerCase(),
+      widgetType: widgetType.toLowerCase()
+    }
+  }))
+
+}
+
+// example b
+class WidgetUtilities {
+
+  makeWidget = 
     deprecated(
-      time(function(widgetName, widgetType) {
-        return {
-          widgetName: widgetName.toLowerCase(),
-          widgetType: widgetType.toLowerCase()
+      time(
+        function(widgetName, widgetType) {
+          return {
+            widgetName: widgetName.toLowerCase(),
+            widgetType: widgetType.toLowerCase()
+          }
         }
-      })
+      )
     )
 
 }
